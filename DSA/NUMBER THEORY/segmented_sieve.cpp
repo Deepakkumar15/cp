@@ -2,7 +2,7 @@
 #include <iostream>
 
 using namespace std ;
-#define MAX 10001
+#define MAX 32001
 #define ll long long
 
 vector<int>* sieve(){
