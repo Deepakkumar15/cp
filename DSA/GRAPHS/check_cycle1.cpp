@@ -50,7 +50,10 @@ bool Graph::isCyclic(){
 		rec[i]=false ;
 	}
 	
-	return(isCyclic_help(0, visited, rec));
+	for(int i=0; i<v; i++)
+		if(isCyclic_help(i, visited, rec))
+			return true ;
+	return false ;
 }
 
 int main(){
