@@ -49,12 +49,8 @@ bool Graph::isCyclic(){
 		visited[i]=false ;
 		rec[i]=false ;
 	}
-
-	for(int i=0; i<v; i++)
-		if(isCyclic_help(i, visited, rec))
-			return true ;
-
-	return false ;	
+	
+	return(isCyclic_help(0, visited, rec));
 }
 
 int main(){
