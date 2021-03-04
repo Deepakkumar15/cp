@@ -34,7 +34,7 @@ int diameter(Node *root){
 	int rd = diameter(root->right) ;
 	int lh = height(root->left) ;
 	int rh = height(root->right) ;
-	int rtd = lh+rh+2 ;
+	int rtd = lh+rh+1 ;
 	return max(rtd, max(ld, rd)) ;	
 }
 
@@ -72,6 +72,6 @@ signed main(){
 		ptr->data = d ;
 	}
 
-	cout << diameter(root)-1 << endl ;
+	cout << diameter(root) << endl ;
 	return 0 ;
 }
