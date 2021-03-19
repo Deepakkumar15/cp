@@ -17,6 +17,14 @@ public:
     
 };
 
+void reverse_print(Node *head){
+    Node *temp = head ;
+    if(temp == NULL)
+        return ;
+    reverse_print(temp->link) ;
+    cout << temp->data << " " ;
+}
+
 void print_list(Node *head){
     Node *temp = head ;
     while(temp){
@@ -65,6 +73,8 @@ signed main(){
     cin >> n ;
     Node *head = create(n) ;
     print_list(head) ;
+    cout << endl; 
+    reverse_print(head) ;
     cout << endl; 
     head = reverse(head) ;
     print_list(head) ;
