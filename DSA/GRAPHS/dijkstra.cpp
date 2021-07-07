@@ -5,20 +5,24 @@
 #include <unordered_map>
 
 using namespace std ;
+#define ll long long int
+#define vi vector<ll>
+#define pi pair<ll, ll>
+vi dist(1e5+7, INT_MAX) ;
 
 template<typename T>
 class Graph{
-	unordered_map<T, list<pair<T, int>>> umap; 
+	unordered_map<T, list<pair<T, int>>> adj; 
 
 public:
 	void addEdge(T a, T b, int dist, bool dir=true){
-		umap[a].push_back({b, dist}) ;
+		adj[a].push_back({b, dist}) ;
 		if(dir)
-			umap[b].push_back({a, dist}) ;
+			adj[b].push_back({a, dist}) ;
 	}
 
 	void print_adj(){
-		for(auto it:umap){
+		for(auto it:adj){
 			cout << it.first << "->"  ;
 			for(auto itr:it.second)
 				cout << "(" << itr.first << " " << itr.second << ")" ;
@@ -26,37 +30,37 @@ public:
 		}
 	}
 
-	void dijkstra(T src){
-	    unordered_map<T, int> dist ;
-    	for(auto it:umap)
-    		dist[it.first]=INT_MAX ;
-    
-    	set<pair<int, T>> s ;
-    	dist[src]=0 ;
-    	s.insert({0, src}) ;
-    
-    	while(!s.empty()){
-    		auto itr = *(s.begin()) ;
-    		s.erase(s.begin()) ;
-    		T node = itr.second ;
-    		int node_dist = itr.first ;
-    		for(auto nbr:umap[node]){
-    		    T v = nbr.first ;
-    		    int weight = nbr.second ;
-    			if(node_dist + weight < dist[v]){
-    				// In set updation is not possible
-    				// we have to remove the old pair and 
-    				// insert a new pair instead
-    				if(s.find({dist[v], v})!=s.end())
-    					s.erase({dist[v], v}) ;
-    				dist[v] = node_dist + weight ;
-    				s.insert({dist[v], v}) ;
-    			}
-    		}
-    	}
-    
-    	for(auto i : dist)
-    		cout << i.first << " " << i.second << endl ;
+	void dijkstra(ll src){
+		set<pi> s ;
+		dist[src]=0 ;
+		s.insert({0, src}) ;
+
+		while(!s.empty()){
+			auto it = *(s.begin()) ;
+			s.erase(s.begin()) ;
+			
+			ll node = it.second ;
+			ll node_dist = it.first ;
+			
+			for(auto nbr : adj[node]){
+			    ll v = nbr.first ;
+			    ll weight = nbr.second ;
+				if(node_dist + weight < dist[v]){
+					// In set updation is not possible
+					// we have to remove the old pair and 
+					// insert a new pair instead
+					if(s.find({dist[v], v})!=s.end())
+						s.erase({dist[v], v}) ;
+					
+					dist[v] = node_dist + weight ;
+					s.insert({dist[v], v}) ;
+				}
+			}
+		}
+
+		for(ll i=1; i<=n; i++)
+			cout << dist[i] << endl ;
+		return ;
     }	
 };
 
